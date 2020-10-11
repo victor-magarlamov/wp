@@ -21,21 +21,6 @@ module.exports = {
             use: 'babel-loader',
           },
           {
-            test: /\.css$/,
-            use: [
-              'style-loader',
-              MiniCssExtractPlugin.loader,
-              {
-                loader: 'css-loader',
-                options: {
-                  modules: {
-                    localIdentName: '[local]'
-                  }
-                }
-              }
-            ],
-          },
-          {
             test: /\.scss$/,
             use: [
               'style-loader',

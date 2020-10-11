@@ -4,6 +4,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -73,6 +75,29 @@ module.exports = {
   },
   optimization: {
     minimize: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          parallel: true,
+          warnings: false,
+          sourceMap: false,
+          ie8: false,
+          keep_classnames: false,
+          keep_fnames: false,
+          safari10: false,
+          compress: {
+            unused: true,
+            comparisons: true,
+            drop_console: true,
+          },
+          output: {
+            comments: false,
+            beautify: false,
+          },
+        },
+      }),
+      new OptimizeCSSAssetsPlugin({}),
+    ],
     splitChunks: {
       chunks: "all",
       minSize: 40,
@@ -81,7 +106,20 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
+      inject: true,
       template: 'public/index.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      },
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
