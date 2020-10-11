@@ -10,7 +10,7 @@ module.exports = {
     app: './src/index.js'
   },
   output: {
-    filename: 'static/[name].[fullhash].js',
+    filename: 'wp/static/[name].[fullhash].js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
   },
