@@ -3,6 +3,9 @@ const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'production',
@@ -20,13 +23,32 @@ module.exports = {
         test: /\.(js)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
-      }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
     ],
+  },
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      chunks: "all",
+      minSize: 40,
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
     }),
+    new MiniCssExtractPlugin(),
+    //new BundleAnalyzerPlugin(),
   ],
 };
