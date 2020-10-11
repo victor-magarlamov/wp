@@ -13,6 +13,15 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
   },
+  module: {
+    rules: [
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      }
+    ],
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html',
