@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{12:function(n,o){n.exports={greeting:{hi:"Привет!"}}}}]);
