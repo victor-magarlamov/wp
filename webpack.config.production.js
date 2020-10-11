@@ -9,13 +9,14 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
   mode: 'production',
+  target: 'web',
   entry: {
     app: './src/index.js'
   },
   output: {
-    filename: 'wp/static/[name].[fullhash].js',
+    filename: '[name].[fullhash].js',
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
+    publicPath: '/wp/',
   },
   module: {
     rules: [
@@ -49,6 +50,6 @@ module.exports = {
       template: 'public/index.html',
     }),
     new MiniCssExtractPlugin(),
-    //new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin(),
   ],
 };
