@@ -14,28 +14,50 @@ module.exports = {
     app: './src/index.js'
   },
   output: {
-    filename: '[name].[fullhash].js',
+    filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '/wp/',
   },
   module: {
     rules: [
       {
-        test: /\.(js)$/,
-        exclude: /node_modules/,
-        use: 'babel-loader',
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-          'sass-loader',
+        oneOf: [
+          {
+            test: /\.(js)$/,
+            exclude: /node_modules/,
+            use: 'babel-loader',
+          },
+          {
+            test: /\.css$/,
+            use: [
+              'style-loader',
+              MiniCssExtractPlugin.loader,
+              'css-loader',
+            ],
+          },
+          {
+            test: /\.scss$/,
+            use: [
+              'style-loader',
+              MiniCssExtractPlugin.loader,
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: true,
+                  sourceMap: false,
+                },
+              },
+              'postcss-loader',
+              'sass-loader',
+            ],
+          },
         ],
       },
     ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.scss'],
   },
   optimization: {
     minimize: true,
@@ -49,7 +71,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'public/index.html',
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].[hash].css',
+    }),
     new BundleAnalyzerPlugin(),
   ],
 };
