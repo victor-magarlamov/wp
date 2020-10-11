@@ -11,7 +11,7 @@ function setLocale (locale = 'en') {
 export default function App () {
   setLocale();
 
-  handleLocaleClick = () => {
+  const handleLocaleClick = () => {
     setLocale('ru');
   };
 
