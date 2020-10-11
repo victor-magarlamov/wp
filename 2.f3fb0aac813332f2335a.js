@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{12:function(n){n.exports=JSON.parse('{"greeting":{"hi":"Hi!"}}')}}]);
