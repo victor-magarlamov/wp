@@ -11,7 +11,14 @@ function setLocale (locale = 'en') {
 export default function App () {
   setLocale();
 
+  handleLocaleClick = () => {
+    setLocale('ru');
+  };
+
   return (
-    <div className="main">{T.translate("greeting.hi")}</div>
+    <div>
+      <div className="main">{T.translate("greeting.hi")}</div>
+      <button onClick={handleLocaleClick}>rus</button>
+    </div>
   );
 };
