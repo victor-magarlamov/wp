@@ -1,23 +1,16 @@
-const path = require('path');
 const webpack = require('webpack');
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const port = process.env.PORT || 3000;
 
 module.exports = {
-  mode: 'production',
-  target: 'web',
-  entry: {
-    app: './src/index.js'
-  },
+  mode: 'development',
+  entry: './src/index.js',
   output: {
-    filename: '[name].[hash].js',
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/wp/',
+    filename: 'bundle.[hash].js'
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -65,21 +58,9 @@ module.exports = {
           },
         ],
       },
-    ],
-  },
-  resolve: {
-    extensions: ['.js', '.jsx'],
-    extensions: ['.js', '.jsx', '.scss'],
-  },
-  optimization: {
-    minimize: true,
-    splitChunks: {
-      chunks: "all",
-      minSize: 40,
-    },
+    ]
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
     }),
@@ -87,6 +68,13 @@ module.exports = {
       filename: '[name].[hash].css',
       chunkFilename: '[id].[hash].css',
     }),
-    new BundleAnalyzerPlugin(),
   ],
+  devServer: {
+    port: 'localhost',
+    port: port,
+    hot: true,
+    historyApiFallback: true,
+    open: true
+  }
 };
+
