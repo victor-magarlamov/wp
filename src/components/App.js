@@ -4,7 +4,7 @@ import './App.scss';
 
 function setLocale (locale = 'en') {
   import(`../locales/${locale}.yml`).then(loc => {
-    T.setText(loc);
+    T.setTexts(loc);
   });
 }
 
