@@ -32,7 +32,14 @@ module.exports = {
             use: [
               'style-loader',
               MiniCssExtractPlugin.loader,
-              'css-loader',
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: {
+                    localIdentName: '[local]'
+                  }
+                }
+              }
             ],
           },
           {
@@ -43,9 +50,10 @@ module.exports = {
               {
                 loader: 'css-loader',
                 options: {
-                  modules: true,
-                  sourceMap: false,
-                },
+                  modules: {
+                    localIdentName: '[local]'
+                  }
+                }
               },
               'postcss-loader',
               'sass-loader',
