@@ -45,20 +45,28 @@ module.exports = {
             ],
           },
           {
-            test: /\.scss$/,
+            test: /\.s[ac]ss$/i,
             use: [
-              'style-loader',
               MiniCssExtractPlugin.loader,
               {
                 loader: 'css-loader',
                 options: {
                   modules: {
-                    localIdentName: '[local]'
-                  }
+                    localIdentName: '[local]',
+                  },
+                  sourceMap: false,
                 }
               },
               'postcss-loader',
-              'sass-loader',
+              {
+                loader: 'sass-loader',
+                options: {
+                  sourceMap: false,
+                  sassOptions: {
+                    outputStyle: 'compressed',
+                  },
+                },
+              },
             ],
           },
           {

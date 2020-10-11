@@ -6,7 +6,7 @@
   "homepage": "https://victor-magarlamov.github.io/wp/",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.development.js",
-    "build": "webpack --config webpack.config.production.js",
+    "build": "webpack --progress --config webpack.config.production.js",
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
